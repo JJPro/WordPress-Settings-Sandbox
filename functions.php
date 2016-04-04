@@ -14,40 +14,40 @@ function sandbox_example_theme_menu() {
 		'sandbox_theme_display'				// The name of the function to call when rendering this menu's page
 	);
 	
-	add_menu_page(
-		'Sandbox Theme',					// The value used to populate the browser's title bar when the menu page is active
-		'Sandbox Theme',					// The text of the menu in the administrator's sidebar
-		'administrator',					// What roles are able to access the menu
-		'sandbox_theme_menu',				// The ID used to bind submenu items to this menu 
-		'sandbox_theme_display'				// The callback function used to render this menu
-	);
-	
-	add_submenu_page(
-		'sandbox_theme_menu',				// The ID of the top-level menu page to which this submenu item belongs
-		__( 'Display Options', 'sandbox' ),			// The value used to populate the browser's title bar when the menu page is active
-		__( 'Display Options', 'sandbox' ),					// The label of this submenu item displayed in the menu
-		'administrator',					// What roles are able to access this submenu item
-		'sandbox_theme_display_options',	// The ID used to represent this submenu item
-		'sandbox_theme_display'				// The callback function used to render the options for this submenu item
-	);
-	
-	add_submenu_page(
-		'sandbox_theme_menu',
-		__( 'Social Options', 'sandbox' ),
-		__( 'Social Options', 'sandbox' ),
-		'administrator',
-		'sandbox_theme_social_options',
-		create_function( null, 'sandbox_theme_display( "social_options" );' )
-	);
-	
-	add_submenu_page(
-		'sandbox_theme_menu',
-		__( 'Input Examples', 'sandbox' ),
-		__( 'Input Examples', 'sandbox' ),
-		'administrator',
-		'sandbox_theme_input_examples',
-		create_function( null, 'sandbox_theme_display( "input_examples" );' )
-	);
+//	add_menu_page(
+//		'Sandbox Theme',					// The value used to populate the browser's title bar when the menu page is active
+//		'Sandbox Theme',					// The text of the menu in the administrator's sidebar
+//		'administrator',					// What roles are able to access the menu
+//		'sandbox_theme_menu',				// The ID used to bind submenu items to this menu
+//		'sandbox_theme_display'				// The callback function used to render this menu
+//	);
+//
+//	add_submenu_page(
+//		'sandbox_theme_menu',				// The ID of the top-level menu page to which this submenu item belongs
+//		__( 'Display Options', 'sandbox' ),			// The value used to populate the browser's title bar when the menu page is active
+//		__( 'Display Options', 'sandbox' ),					// The label of this submenu item displayed in the menu
+//		'administrator',					// What roles are able to access this submenu item
+//		'sandbox_theme_display_options',	// The ID used to represent this submenu item
+//		'sandbox_theme_display'				// The callback function used to render the options for this submenu item
+//	);
+//
+//	add_submenu_page(
+//		'sandbox_theme_menu',
+//		__( 'Social Options', 'sandbox' ),
+//		__( 'Social Options', 'sandbox' ),
+//		'administrator',
+//		'sandbox_theme_social_options',
+//		create_function( null, 'sandbox_theme_display( "social_options" );' )
+//	);
+//
+//	add_submenu_page(
+//		'sandbox_theme_menu',
+//		__( 'Input Examples', 'sandbox' ),
+//		__( 'Input Examples', 'sandbox' ),
+//		'administrator',
+//		'sandbox_theme_input_examples',
+//		create_function( null, 'sandbox_theme_display( "input_examples" );' )
+//	);
 
 
 } // end sandbox_example_theme_menu
@@ -64,47 +64,55 @@ function sandbox_theme_display( $active_tab = '' ) {
 		<div id="icon-themes" class="icon32"></div>
 		<h2><?php _e( 'Sandbox Theme Options', 'sandbox' ); ?></h2>
 		<?php settings_errors(); ?>
-		
-		<?php if( isset( $_GET[ 'tab' ] ) ) {
-			$active_tab = $_GET[ 'tab' ];
-		} else if( $active_tab == 'social_options' ) {
-			$active_tab = 'social_options';
-		} else if( $active_tab == 'input_examples' ) {
-			$active_tab = 'input_examples';
-		} else {
-			$active_tab = 'display_options';
-		} // end if/else ?>
-		
-		<h2 class="nav-tab-wrapper">
-			<a href="?page=sandbox_theme_options&tab=display_options" class="nav-tab <?php echo $active_tab == 'display_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Display Options', 'sandbox' ); ?></a>
-			<a href="?page=sandbox_theme_options&tab=social_options" class="nav-tab <?php echo $active_tab == 'social_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Social Options', 'sandbox' ); ?></a>
-			<a href="?page=sandbox_theme_options&tab=input_examples" class="nav-tab <?php echo $active_tab == 'input_examples' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Input Examples', 'sandbox' ); ?></a>
-		</h2>
-		
+
 		<form method="post" action="options.php">
 			<?php
-			
-				if( $active_tab == 'display_options' ) {
-				
-					settings_fields( 'sandbox_theme_display_options' );
-					do_settings_sections( 'sandbox_theme_display_options' );
-					
-				} elseif( $active_tab == 'social_options' ) {
-				
-					settings_fields( 'sandbox_theme_social_options' );
-					do_settings_sections( 'sandbox_theme_social_options' );
-					
-				} else {
-				
-					settings_fields( 'sandbox_theme_input_examples' );
-					do_settings_sections( 'sandbox_theme_input_examples' );
-					
-				} // end if/else
-				
-				submit_button();
-			
+			settings_fields( 'sandbox_theme_options' );
+			do_settings_sections( 'sandbox_theme_options' );
+			submit_button();
 			?>
 		</form>
+		
+<!--		--><?php //if( isset( $_GET[ 'tab' ] ) ) {
+//			$active_tab = $_GET[ 'tab' ];
+//		} else if( $active_tab == 'social_options' ) {
+//			$active_tab = 'social_options';
+//		} else if( $active_tab == 'input_examples' ) {
+//			$active_tab = 'input_examples';
+//		} else {
+//			$active_tab = 'display_options';
+//		} // end if/else ?>
+<!--		-->
+<!--		<h2 class="nav-tab-wrapper">-->
+<!--			<a href="?page=sandbox_theme_options&tab=display_options" class="nav-tab --><?php //echo $active_tab == 'display_options' ? 'nav-tab-active' : ''; ?><!--">--><?php //_e( 'Display Options', 'sandbox' ); ?><!--</a>-->
+<!--			<a href="?page=sandbox_theme_options&tab=social_options" class="nav-tab --><?php //echo $active_tab == 'social_options' ? 'nav-tab-active' : ''; ?><!--">--><?php //_e( 'Social Options', 'sandbox' ); ?><!--</a>-->
+<!--			<a href="?page=sandbox_theme_options&tab=input_examples" class="nav-tab --><?php //echo $active_tab == 'input_examples' ? 'nav-tab-active' : ''; ?><!--">--><?php //_e( 'Input Examples', 'sandbox' ); ?><!--</a>-->
+<!--		</h2>-->
+<!--		-->
+<!--		<form method="post" action="options.php">-->
+<!--			--><?php
+//
+//				if( $active_tab == 'display_options' ) {
+//
+//					settings_fields( 'sandbox_theme_display_options' );
+//					do_settings_sections( 'sandbox_theme_display_options' );
+//
+//				} elseif( $active_tab == 'social_options' ) {
+//
+//					settings_fields( 'sandbox_theme_social_options' );
+//					do_settings_sections( 'sandbox_theme_social_options' );
+//
+//				} else {
+//
+//					settings_fields( 'sandbox_theme_input_examples' );
+//					do_settings_sections( 'sandbox_theme_input_examples' );
+//
+//				} // end if/else
+//
+//				submit_button();
+//
+//			?>
+<!--		</form>-->
 		
 	</div><!-- /.wrap -->
 <?php
@@ -180,7 +188,7 @@ function sandbox_initialize_theme_options() {
 		'general_settings_section',			// ID used to identify this section and with which to register options
 		__( 'Display Options', 'sandbox' ),		// Title to be displayed on the administration page
 		'sandbox_general_options_callback',	// Callback used to render the description of the section
-		'sandbox_theme_display_options'		// Page on which to add this section of options
+		'sandbox_theme_options'		// Page on which to add this section of options
 	);
 	
 	// Next, we'll introduce the fields for toggling the visibility of content elements.
@@ -188,7 +196,7 @@ function sandbox_initialize_theme_options() {
 		'show_header',						// ID used to identify the field throughout the theme
 		__( 'Header', 'sandbox' ),							// The label to the left of the option interface element
 		'sandbox_toggle_header_callback',	// The name of the function responsible for rendering the option interface
-		'sandbox_theme_display_options',	// The page on which this option will be displayed
+		'sandbox_theme_options',	// The page on which this option will be displayed
 		'general_settings_section',			// The name of the section to which this field belongs
 		array(								// The array of arguments to pass to the callback. In this case, just a description.
 			__( 'Activate this setting to display the header.', 'sandbox' ),
@@ -199,7 +207,7 @@ function sandbox_initialize_theme_options() {
 		'show_content',						
 		__( 'Content', 'sandbox' ),				
 		'sandbox_toggle_content_callback',	
-		'sandbox_theme_display_options',					
+		'sandbox_theme_options',
 		'general_settings_section',			
 		array(								
 			__( 'Activate this setting to display the content.', 'sandbox' ),
@@ -210,7 +218,7 @@ function sandbox_initialize_theme_options() {
 		'show_footer',						
 		__( 'Footer', 'sandbox' ),				
 		'sandbox_toggle_footer_callback',	
-		'sandbox_theme_display_options',		
+		'sandbox_theme_options',
 		'general_settings_section',			
 		array(								
 			__( 'Activate this setting to display the footer.', 'sandbox' ),
@@ -219,7 +227,7 @@ function sandbox_initialize_theme_options() {
 	
 	// Finally, we register the fields with WordPress
 	register_setting(
-		'sandbox_theme_display_options',
+		'sandbox_theme_options',
 		'sandbox_theme_display_options'
 	);
 	
@@ -242,14 +250,14 @@ function sandbox_theme_initialize_social_options() {
 		'social_settings_section',			// ID used to identify this section and with which to register options
 		__( 'Social Options', 'sandbox' ),		// Title to be displayed on the administration page
 		'sandbox_social_options_callback',	// Callback used to render the description of the section
-		'sandbox_theme_social_options'		// Page on which to add this section of options
+		'sandbox_theme_options'		// Page on which to add this section of options
 	);
 	
 	add_settings_field(	
 		'twitter',						
 		'Twitter',							
 		'sandbox_twitter_callback',	
-		'sandbox_theme_social_options',	
+		'sandbox_theme_options',
 		'social_settings_section'			
 	);
 
@@ -257,7 +265,7 @@ function sandbox_theme_initialize_social_options() {
 		'facebook',						
 		'Facebook',							
 		'sandbox_facebook_callback',	
-		'sandbox_theme_social_options',	
+		'sandbox_theme_options',
 		'social_settings_section'			
 	);
 	
@@ -265,12 +273,12 @@ function sandbox_theme_initialize_social_options() {
 		'googleplus',						
 		'Google+',							
 		'sandbox_googleplus_callback',	
-		'sandbox_theme_social_options',	
+		'sandbox_theme_options',
 		'social_settings_section'			
 	);
 	
 	register_setting(
-		'sandbox_theme_social_options',
+		'sandbox_theme_options',
 		'sandbox_theme_social_options',
 		'sandbox_theme_sanitize_social_options'
 	);
@@ -295,14 +303,14 @@ function sandbox_theme_initialize_input_examples() {
 		'input_examples_section',
 		__( 'Input Examples', 'sandbox' ),
 		'sandbox_input_examples_callback',
-		'sandbox_theme_input_examples'
+		'sandbox_theme_options'
 	);
 	
 	add_settings_field(	
 		'Input Element',						
 		__( 'Input Element', 'sandbox' ),							
 		'sandbox_input_element_callback',	
-		'sandbox_theme_input_examples',	
+		'sandbox_theme_options',
 		'input_examples_section'			
 	);
 	
@@ -310,7 +318,7 @@ function sandbox_theme_initialize_input_examples() {
 		'Textarea Element',						
 		__( 'Textarea Element', 'sandbox' ),							
 		'sandbox_textarea_element_callback',	
-		'sandbox_theme_input_examples',	
+		'sandbox_theme_options',
 		'input_examples_section'			
 	);
 	
@@ -318,7 +326,7 @@ function sandbox_theme_initialize_input_examples() {
 		'Checkbox Element',
 		__( 'Checkbox Element', 'sandbox' ),
 		'sandbox_checkbox_element_callback',
-		'sandbox_theme_input_examples',
+		'sandbox_theme_options',
 		'input_examples_section'
 	);
 	
@@ -326,7 +334,7 @@ function sandbox_theme_initialize_input_examples() {
 		'Radio Button Elements',
 		__( 'Radio Button Elements', 'sandbox' ),
 		'sandbox_radio_element_callback',
-		'sandbox_theme_input_examples',
+		'sandbox_theme_options',
 		'input_examples_section'
 	);
 	
@@ -334,12 +342,12 @@ function sandbox_theme_initialize_input_examples() {
 		'Select Element',
 		__( 'Select Element', 'sandbox' ),
 		'sandbox_select_element_callback',
-		'sandbox_theme_input_examples',
+		'sandbox_theme_options',
 		'input_examples_section'
 	);
 	
 	register_setting(
-		'sandbox_theme_input_examples',
+		'sandbox_theme_options',
 		'sandbox_theme_input_examples',
 		'sandbox_theme_validate_input_examples'
 	);
